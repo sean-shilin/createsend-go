@@ -91,14 +91,14 @@ func (c *APIClient) ListsForEmail(clientID string, email string) ([]*ListForEmai
 	return lists, err
 }
 
-type SuppressionEmail struct {
+type SuppressedEmail struct {
 	SuppressionReason   string
 	EmailAddress        string
 	Date        		string
 	State 				string
 }
 
-func (c *APIClient) SuppressionList(clientID string) ([]*SuppressionEmail, error) {
+func (c *APIClient) SuppressionList(clientID string) ([]*SuppressedEmail, error) {
 	u := fmt.Sprintf("clients/%s/suppressionlist.json", clientID)
 
 	req, err := c.NewRequest("GET", u, nil)
@@ -106,7 +106,7 @@ func (c *APIClient) SuppressionList(clientID string) ([]*SuppressionEmail, error
 		return nil, err
 	}
 
-	var emails []*SuppressionEmail
+	var emails []*SuppressedEmail
 	err = c.Do(req, &emails)
 	if err != nil {
 		return nil, err

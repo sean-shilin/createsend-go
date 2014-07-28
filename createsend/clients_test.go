@@ -77,13 +77,13 @@ func TestSuppressionList(t *testing.T) {
 		fmt.Fprint(w, `[{"SuppressionReason": "Bounced", "EmailAddress": "example+1@example.com", "Date": "2010-10-26 10:55:31", "State": "Suppressed"}]`)
 	})
 
-	lists, err := client.SuppressionList("12ab")
+	emails, err := client.SuppressionList("12ab")
 	if err != nil {
 		t.Errorf("SuppressionList returned error: %v", err)
 	}
 
-	want := []*SuppressionEmail{{SuppressionReason: "Bounced", EmailAddress: "example+1@example.com", Date: "2010-10-26 10:55:31", State: "Suppressed"}}
-	if !reflect.DeepEqual(lists, want) {
-		t.Errorf("SuppressionList returned %+v, want %+v", lists, want)
+	want := []*SuppressedEmail{{SuppressionReason: "Bounced", EmailAddress: "example+1@example.com", Date: "2010-10-26 10:55:31", State: "Suppressed"}}
+	if !reflect.DeepEqual(emails, want) {
+		t.Errorf("SuppressionList returned %+v, want %+v", emails, want)
 	}
 }
