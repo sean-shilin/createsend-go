@@ -98,8 +98,8 @@ type SuppressedEmail struct {
 	State 				string
 }
 
-func (c *APIClient) SuppressionList(clientID string) ([]*SuppressedEmail, error) {
-	u := fmt.Sprintf("clients/%s/suppressionlist.json", clientID)
+func (c *APIClient) SuppressionList(clientID string, page int) ([]*SuppressedEmail, error) {
+	u := fmt.Sprintf("clients/%s/suppressionlist.json?page=%d", clientID, page)
 
 	req, err := c.NewRequest("GET", u, nil)
 	if err != nil {

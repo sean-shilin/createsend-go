@@ -77,7 +77,7 @@ func TestSuppressionList(t *testing.T) {
 		fmt.Fprint(w, `{"Results": [{"SuppressionReason": "Bounced", "EmailAddress": "example+1@example.com", "Date": "2010-10-26 10:55:31", "State": "Suppressed"}]}`)
 	})
 
-	emails, err := client.SuppressionList("12ab")
+	emails, err := client.SuppressionList("12ab", 1)
 	if err != nil {
 		t.Errorf("SuppressionList returned error: %v", err)
 	}
