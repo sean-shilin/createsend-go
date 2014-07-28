@@ -106,11 +106,9 @@ func (c *APIClient) SuppressionList(clientID string) ([]*SuppressedEmail, error)
 		return nil, err
 	}
 
-	var emails []*SuppressedEmail
-	err = c.Do(req, &emails)
-	if err != nil {
-		return nil, err
+	var results struct {
+		Results []*SuppressedEmail
 	}
-
-	return emails, err
+	err = c.Do(req, &results)
+	return results.Results, err
 }

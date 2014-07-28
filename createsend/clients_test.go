@@ -74,7 +74,7 @@ func TestSuppressionList(t *testing.T) {
 
 	mux.HandleFunc("/clients/12ab/suppressionlist.json", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
-		fmt.Fprint(w, `[{"SuppressionReason": "Bounced", "EmailAddress": "example+1@example.com", "Date": "2010-10-26 10:55:31", "State": "Suppressed"}]`)
+		fmt.Fprint(w, `{"Results": [{"SuppressionReason": "Bounced", "EmailAddress": "example+1@example.com", "Date": "2010-10-26 10:55:31", "State": "Suppressed"}]}`)
 	})
 
 	emails, err := client.SuppressionList("12ab")
