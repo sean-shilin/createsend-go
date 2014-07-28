@@ -67,3 +67,23 @@ func TestListsForEmail(t *testing.T) {
 		t.Errorf("ListsForEmail returned %+v, want %+v", lists, want)
 	}
 }
+
+func TestSuppressionList(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/clients/12ab/suppressionlist.json", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		fmt.Fprint(w, `[{"SuppressionReason": "Bounced", "EmailAddress": "example+1@example.com", "Date": "2010-10-26 10:55:31", "State": "Suppressed"}]`)
+	})
+
+	lists, err := client.SuppressionList("12ab")
+	if err != nil {
+		t.Errorf("SuppressionList returned error: %v", err)
+	}
+
+	want := []*SuppressionEmail{{SuppressionReason: "Bounced", EmailAddress: "example+1@example.com", Date: "2010-10-26 10:55:31", State: "Suppressed"}}
+	if !reflect.DeepEqual(lists, want) {
+		t.Errorf("SuppressionList returned %+v, want %+v", lists, want)
+	}
+}
